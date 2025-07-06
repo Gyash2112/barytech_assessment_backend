@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/authRoutes');
 const parentRoutes = require('./routes/parentRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 
 require('dotenv').config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/parent', parentRoutes);
+app.use('/api/transaction', transactionRoutes);
 
 // Routes Placeholder
 app.get('/', (req, res) => {
