@@ -8,6 +8,7 @@ const {
   setChildBudget,
   setGeneralBudget,
   getChildBudgetStatus,
+  getGeneralBudgetStatus,
 } = require('../controllers/budgetController');
 
 const router = express.Router();
@@ -44,7 +45,7 @@ router.get(
   '/get-general-budget-status',
   verifyToken,
   checkRole('parent'),
-  getChildBudgetStatus
+  getGeneralBudgetStatus
 );
 
 router.get('/get-all-users', verifyToken, checkRole('parent'), getAllUsers);

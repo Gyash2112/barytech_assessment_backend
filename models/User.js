@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
     enum: ['parent', 'child'],
     default: 'child',
   },
+  parentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null,
+  },
 });
 
 // Hash password before saving

@@ -25,7 +25,7 @@ exports.setGeneralBudget = async (req, res) => {
   const { month, categoryBudgets } = req.body;
 
   try {
-    const existing = await Budget.find({ isGeneral: true, month });
+    const existing = await Budget.findOne({ isGeneral: true, month });
 
     if (existing) {
       existing.categoryBudgets = categoryBudgets;
@@ -101,7 +101,7 @@ exports.getChildBudgetStatus = async (req, res) => {
   }
 };
 
-exports.getGeneralBudgetStatus = async () => {
+exports.getGeneralBudgetStatus = async (req, res) => {
   const { month } = req.query;
 
   try {
@@ -109,13 +109,18 @@ exports.getGeneralBudgetStatus = async () => {
       return res.status(400).json({ msg: 'Month is Required' });
     }
 
-    const generalBudget = await Budget.findone({ isGeneral: true, month });
+    const generalBudget = await Budget.findOne({ isGeneral: true, month });
 
     if (!generalBudget) {
-      return res.status(400).json({ msg: 'General Budget not found' });
+      return res
+        .status(200)
+        .json({ msg: 'General Budget not found', data: [] });
     }
 
-    const children = await User.find({ role: 'child' }, '_id');
+    const children = await User.find(
+      { role: 'child', parentId: req.user._id },
+      '_id'
+    );
 
     const childIds = children.map((c) => c._id);
 
@@ -153,7 +158,7 @@ exports.getGeneralBudgetStatus = async () => {
       };
     });
 
-    res.status(200).json(statusList);
+    res.status(200).json({ msg: '', data: statusList });
   } catch (err) {
     res
       .status(500)
