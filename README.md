@@ -64,15 +64,16 @@ volumes:
 
 3.Start the MongoDB container by running:
 
-```docker-compose up -d
-
+```
+docker-compose up -d
 ```
 
 ### 🧱 Step 2: Clone and Set Up Backend
 
 1. Clone the backend repository inside the same folder:
 
-```git clone https://github.com/<your-username>/expense-tracker-backend.git
+```
+git clone https://github.com/Gyash2112/barytech_assessment_backend.git
 cd expense-tracker-backend
 ```
 
